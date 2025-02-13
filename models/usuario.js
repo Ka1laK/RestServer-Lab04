@@ -9,11 +9,6 @@ const UsuarioSchema = Schema({
         required: [true, 'El correo es obligatorio'],
         unique: true
     },
-    correo: {
-        type: String,
-        required: [true, 'El correo es obligatorio'],
-        unique: true
-    },
     password: {
         type: String,
         required: [true, 'La contrasena es obligatoria']
@@ -41,5 +36,14 @@ const UsuarioSchema = Schema({
     },
 
 });
+
+
+//esta funcion quita los campos __v y password y el resto los almacena en variable usuario
+UsuarioSchema.methods.toJSON = function(){
+    const {__v,password, ...usuario } = this.toObject();
+    return usuario;
+}
+
+
 
 module.exports = model('Usuario',UsuarioSchema);
