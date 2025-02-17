@@ -11,7 +11,7 @@ const UsuarioSchema = Schema({
     },
     password: {
         type: String,
-        required: [true, 'La contrasena es obligatoria']
+        required: [true, 'El password es obligatoria']
         
     },
     img: {
@@ -38,9 +38,10 @@ const UsuarioSchema = Schema({
 });
 
 
-//esta funcion quita los campos __v y password y el resto los almacena en variable usuario
+//esta funcion quita los campos _v y password y el resto los almacena en variable usuario
 UsuarioSchema.methods.toJSON = function(){
-    const {__v,password, ...usuario } = this.toObject();
+    const {__v,password,_id, ...usuario } = this.toObject();
+    usuario.uid=_id;
     return usuario;
 }
 

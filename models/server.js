@@ -6,15 +6,16 @@ class Server {
 
     constructor() {
         this.app = express();
+        //define el puesto
         this.port = process.env.PORT || 3000;
         this.usuariosPath = '/api/usuarios';
-        //lamada a la base de datos
+        this.authPath = '/api/auth'
+        //llamada a conectarDB
         this.conectarDB();
         //Middelware
         this.middlewares();
         //Rutas de la aplicacion
         this.routes();
-        
 
     }
 
@@ -39,14 +40,9 @@ class Server {
 
 
     routes() {
+        this.app.use(this.authPath, require('../routers/auth.js'));
         this.app.use(this.usuariosPath, require('../routers/user.js'));
     }
-
-
-
-
-
-
 
     listen() {
 
